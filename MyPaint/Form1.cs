@@ -238,5 +238,10 @@ namespace MyPaint
                 pictureBox1.Refresh();
             }
         }
+
+        private void vScrollBar1_Scroll(object sender, ScrollEventArgs e)
+        {
+
+        }
     }
 }
