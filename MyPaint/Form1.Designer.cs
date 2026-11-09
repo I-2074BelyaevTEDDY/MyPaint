@@ -28,8 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnText = new System.Windows.Forms.Button();
             this.btnPencil = new System.Windows.Forms.Button();
@@ -78,9 +82,6 @@
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
             this.главнаяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.видToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -115,6 +116,36 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1411, 114);
             this.panel1.TabIndex = 0;
+            // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.Color.White;
+            this.button3.Location = new System.Drawing.Point(633, 12);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 45);
+            this.button3.TabIndex = 17;
+            this.button3.Text = "Фломастер";
+            this.button3.UseVisualStyleBackColor = false;
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.White;
+            this.button2.Location = new System.Drawing.Point(552, 62);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 45);
+            this.button2.TabIndex = 16;
+            this.button2.Text = "Кисть";
+            this.button2.UseVisualStyleBackColor = false;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(552, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 45);
+            this.button1.TabIndex = 15;
+            this.button1.Text = "Ручка";
+            this.button1.UseVisualStyleBackColor = false;
             // 
             // btnClear
             // 
@@ -152,44 +183,46 @@
             // btnEllipse
             // 
             this.btnEllipse.BackColor = System.Drawing.Color.White;
+            this.btnEllipse.DialogResult = System.Windows.Forms.DialogResult.Abort;
+            this.btnEllipse.Image = ((System.Drawing.Image)(resources.GetObject("btnEllipse.Image")));
             this.btnEllipse.Location = new System.Drawing.Point(471, 62);
             this.btnEllipse.Name = "btnEllipse";
             this.btnEllipse.Size = new System.Drawing.Size(75, 45);
             this.btnEllipse.TabIndex = 11;
-            this.btnEllipse.Text = "Круг";
             this.btnEllipse.UseVisualStyleBackColor = false;
             this.btnEllipse.Click += new System.EventHandler(this.btnEllipse_Click);
             // 
             // btnRect
             // 
             this.btnRect.BackColor = System.Drawing.Color.White;
+            this.btnRect.Image = ((System.Drawing.Image)(resources.GetObject("btnRect.Image")));
             this.btnRect.Location = new System.Drawing.Point(390, 62);
             this.btnRect.Name = "btnRect";
             this.btnRect.Size = new System.Drawing.Size(75, 45);
             this.btnRect.TabIndex = 10;
-            this.btnRect.Text = "Прямоугольник";
+            this.btnRect.Text = "\r\n";
             this.btnRect.UseVisualStyleBackColor = false;
             this.btnRect.Click += new System.EventHandler(this.btnRect_Click);
             // 
             // btnLine
             // 
             this.btnLine.BackColor = System.Drawing.Color.White;
+            this.btnLine.Image = ((System.Drawing.Image)(resources.GetObject("btnLine.Image")));
             this.btnLine.Location = new System.Drawing.Point(309, 62);
             this.btnLine.Name = "btnLine";
             this.btnLine.Size = new System.Drawing.Size(75, 45);
             this.btnLine.TabIndex = 9;
-            this.btnLine.Text = "Линия";
             this.btnLine.UseVisualStyleBackColor = false;
             this.btnLine.Click += new System.EventHandler(this.btnLine_Click);
             // 
             // btnBucket
             // 
             this.btnBucket.BackColor = System.Drawing.Color.White;
+            this.btnBucket.Image = ((System.Drawing.Image)(resources.GetObject("btnBucket.Image")));
             this.btnBucket.Location = new System.Drawing.Point(228, 62);
             this.btnBucket.Name = "btnBucket";
             this.btnBucket.Size = new System.Drawing.Size(75, 45);
             this.btnBucket.TabIndex = 8;
-            this.btnBucket.Text = "Заливка";
             this.btnBucket.UseVisualStyleBackColor = false;
             this.btnBucket.Click += new System.EventHandler(this.btnBucket_Click);
             // 
@@ -217,11 +250,11 @@
             // btnPalette
             // 
             this.btnPalette.BackColor = System.Drawing.Color.White;
+            this.btnPalette.Image = ((System.Drawing.Image)(resources.GetObject("btnPalette.Image")));
             this.btnPalette.Location = new System.Drawing.Point(228, 12);
             this.btnPalette.Name = "btnPalette";
             this.btnPalette.Size = new System.Drawing.Size(75, 45);
             this.btnPalette.TabIndex = 5;
-            this.btnPalette.Text = "Палитра";
             this.btnPalette.UseVisualStyleBackColor = false;
             this.btnPalette.Click += new System.EventHandler(this.btnPalette_Click);
             // 
@@ -311,19 +344,19 @@
             // создатьToolStripMenuItem
             // 
             this.создатьToolStripMenuItem.Name = "создатьToolStripMenuItem";
-            this.создатьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.создатьToolStripMenuItem.Size = new System.Drawing.Size(266, 22);
             this.создатьToolStripMenuItem.Text = "Создать";
             // 
             // открытьToolStripMenuItem
             // 
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(266, 22);
             this.открытьToolStripMenuItem.Text = "Открыть";
             // 
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(266, 22);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             // 
             // сохранитьКакToolStripMenuItem
@@ -335,7 +368,7 @@
             this.изображениеВФорматеToolStripMenuItem3,
             this.другиеФорматыToolStripMenuItem});
             this.сохранитьКакToolStripMenuItem.Name = "сохранитьКакToolStripMenuItem";
-            this.сохранитьКакToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.сохранитьКакToolStripMenuItem.Size = new System.Drawing.Size(266, 22);
             this.сохранитьКакToolStripMenuItem.Text = "Сохранить как";
             // 
             // изображениеВФорматеToolStripMenuItem
@@ -371,7 +404,7 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(263, 6);
             // 
             // печатьToolStripMenuItem
             // 
@@ -380,7 +413,7 @@
             this.параметрыСтраницыToolStripMenuItem,
             this.предварительныйПросмотрToolStripMenuItem});
             this.печатьToolStripMenuItem.Name = "печатьToolStripMenuItem";
-            this.печатьToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.печатьToolStripMenuItem.Size = new System.Drawing.Size(266, 22);
             this.печатьToolStripMenuItem.Text = "Печать";
             // 
             // печатьToolStripMenuItem1
@@ -404,7 +437,7 @@
             // соСканераИлиКамерыToolStripMenuItem
             // 
             this.соСканераИлиКамерыToolStripMenuItem.Name = "соСканераИлиКамерыToolStripMenuItem";
-            this.соСканераИлиКамерыToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.соСканераИлиКамерыToolStripMenuItem.Size = new System.Drawing.Size(266, 22);
             this.соСканераИлиКамерыToolStripMenuItem.Text = "Со сканера или камеры";
             // 
             // отправитьПоЭлектроннойПрочтеToolStripMenuItem
@@ -431,19 +464,19 @@
             // растянутьToolStripMenuItem
             // 
             this.растянутьToolStripMenuItem.Name = "растянутьToolStripMenuItem";
-            this.растянутьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.растянутьToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.растянутьToolStripMenuItem.Text = "Растянуть ";
             // 
             // замоститьToolStripMenuItem
             // 
             this.замоститьToolStripMenuItem.Name = "замоститьToolStripMenuItem";
-            this.замоститьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.замоститьToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.замоститьToolStripMenuItem.Text = "Замостить";
             // 
             // поЦентруToolStripMenuItem
             // 
             this.поЦентруToolStripMenuItem.Name = "поЦентруToolStripMenuItem";
-            this.поЦентруToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.поЦентруToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.поЦентруToolStripMenuItem.Text = "По центру ";
             // 
             // toolStripMenuItem3
@@ -495,36 +528,6 @@
             this.видToolStripMenuItem.Name = "видToolStripMenuItem";
             this.видToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.видToolStripMenuItem.Text = "Вид";
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(552, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 45);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "Ручка";
-            this.button1.UseVisualStyleBackColor = false;
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(552, 62);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 45);
-            this.button2.TabIndex = 16;
-            this.button2.Text = "Кисть";
-            this.button2.UseVisualStyleBackColor = false;
-            // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(633, 12);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 45);
-            this.button3.TabIndex = 17;
-            this.button3.Text = "Фломастер";
-            this.button3.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 
