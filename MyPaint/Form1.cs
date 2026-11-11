@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace MyPaint
@@ -21,6 +22,7 @@ namespace MyPaint
         public Form1()
         {
             InitializeComponent();
+
         }
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -36,11 +38,16 @@ namespace MyPaint
             pen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
             pen.Width = trackBar1.Value;
         }
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-        }
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
+            isDrawing = true;
+            startPoint = e.Location;
+            lastPoint = e.Location;
+            if (currentTool == "Заливка")
+            {
+                FloodFill(map, e.X, e.Y, currentColor);
+                pictureBox1.Refresh();
+            }
             if (currentTool == "Текст")
             {
                 using (Form textForm = new Form())
@@ -63,30 +70,53 @@ namespace MyPaint
                             using (Font font = new Font("Arial", pen.Width * 3))
                             using (Brush brush = new SolidBrush(currentColor))
                             {
-                                graphics.DrawString(textToPrint, font, brush, e.Location);
+                                tempMap = (Bitmap)map.Clone();
+                                using (Graphics g = Graphics.FromImage(tempMap))
+                                {
+                                    g.DrawString(textToPrint, font, brush, e.Location);
+                                }
+                                map = (Bitmap)tempMap.Clone();
+                                graphics?.Dispose();
+                                graphics = Graphics.FromImage(map);
+                                pictureBox1.Image = map;
                             }
-                            pictureBox1.Refresh();
+                            pictureBox1.Invalidate();
                         }
                     }
+                    return;
                 }
-                return;
-            }
-            isDrawing = true;
-            startPoint = e.Location;
-            lastPoint = e.Location;
-            if (currentTool == "Заливка")
-            {
-                FloodFill(map, e.X, e.Y, currentColor);
-                pictureBox1.Refresh();
             }
         }
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            this.Text = $"MyPaint | X: {e.X}, Y: {e.Y}";
+            this.Text = $"MyPaint |  {e.X},  {e.Y} пикс ";
             if (!isDrawing) return;
             if (currentTool == "Карандаш")
             {
                 graphics.DrawLine(pen, lastPoint, e.Location);
+                lastPoint = e.Location;
+                pictureBox1.Refresh();
+            }
+            else if (currentTool == "Кисть")
+            {
+                using (Pen brushPen = new Pen(currentColor, pen.Width * 2.5f))
+                {
+                    brushPen.StartCap = System.Drawing.Drawing2D.LineCap.Round;
+                    brushPen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
+                    graphics.DrawLine(brushPen, lastPoint, e.Location);
+                }
+                lastPoint = e.Location;
+                pictureBox1.Refresh();
+            }
+            else if (currentTool == "Фломастер")
+            {
+                Color markerColor = Color.FromArgb(60, currentColor);
+                using (Pen markerPen = new Pen(markerColor, pen.Width * 3f))
+                {
+                    markerPen.StartCap = System.Drawing.Drawing2D.LineCap.Square;
+                    markerPen.EndCap = System.Drawing.Drawing2D.LineCap.Square;
+                    graphics.DrawLine(markerPen, lastPoint, e.Location);
+                }
                 lastPoint = e.Location;
                 pictureBox1.Refresh();
             }
@@ -135,6 +165,22 @@ namespace MyPaint
                             int height = Math.Abs(startPoint.Y - e.Y);
                             tempGraphics.DrawEllipse(tempPen, x, y, width, height);
                         }
+                        else if (currentTool == "Овал")
+                        {
+                            int x = Math.Min(startPoint.X, e.X);
+                            int y = Math.Min(startPoint.Y, e.Y);
+                            int width = Math.Abs(startPoint.X - e.X);
+                            int height = Math.Abs(startPoint.Y - e.Y);
+                            tempGraphics.DrawEllipse(tempPen, x, y, width, height);
+                        }
+                        else if (currentTool == "Треугольник")
+                        {
+                            Point top = new Point((startPoint.X + e.X) / 2, Math.Min(startPoint.Y, e.Y));
+                            Point bottomLeft = new Point(Math.Min(startPoint.X, e.X), Math.Max(startPoint.Y, e.Y));
+                            Point bottomRight = new Point(Math.Max(startPoint.X, e.X), Math.Max(startPoint.Y, e.Y));
+                            Point[] points = { top, bottomLeft, bottomRight };
+                            tempGraphics.DrawPolygon(tempPen, points);
+                        }
                     }
                 }
                 pictureBox1.Image = tempMap;
@@ -145,7 +191,7 @@ namespace MyPaint
             if (!isDrawing) return;
             isDrawing = false;
 
-            if (currentTool == "Линия" || currentTool == "Прямоугольник" || currentTool == "Эллипс")
+            if (currentTool == "Линия" || currentTool == "Прямоугольник" || currentTool == "Эллипс" || currentTool == "Овал" || currentTool == "Треугольник")
             {
                 if (tempMap != null)
                 {
@@ -225,6 +271,10 @@ namespace MyPaint
         private void btnLine_Click(object sender, EventArgs e) { currentTool = "Линия"; }
         private void btnRect_Click(object sender, EventArgs e) { currentTool = "Прямоугольник"; }
         private void btnEllipse_Click(object sender, EventArgs e) { currentTool = "Эллипс"; }
+        private void btnOval_Click(object sender, EventArgs e) { currentTool = "Овал"; }
+        private void btnTriangle_Click(object sender, EventArgs e) { currentTool = "Треугольник"; }
+        private void btnBrush_Click(object sender, EventArgs e) { currentTool = "Кисть"; }
+        private void btnMarker_Click(object sender, EventArgs e) { currentTool = "Фломастер"; }
         private void btnText_Click(object sender, EventArgs e)
         {
             currentTool = "Текст";
@@ -236,16 +286,6 @@ namespace MyPaint
                 graphics.Clear(Color.White);
                 pictureBox1.Refresh();
             }
-        }
-
-        private void vScrollBar1_Scroll(object sender, ScrollEventArgs e)
-        {
-
-        }
-
-        private void видToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
