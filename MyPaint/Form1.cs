@@ -34,7 +34,6 @@ namespace MyPaint
             pen = new Pen(Color.Black, 3);
             pen.StartCap = System.Drawing.Drawing2D.LineCap.Round;
             pen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
-
             pen.Width = trackBar1.Value;
         }
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -244,6 +243,9 @@ namespace MyPaint
 
         }
 
-    
+        private void видToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
